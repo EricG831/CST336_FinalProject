@@ -18,11 +18,25 @@ const connection = mysql.createConnection({
 });
 connection.connect();
 
-
-/* The handler for undefined routes */
-app.get('*', function(req, res){
-   console.log("error");
+/* The handler for the DEFAULT route */
+app.get('/', function(req, res){
+    var stmt = 'SELECT * FROM FP_books;';
+    console.log(stmt);
+    var books = null;
+    connection.query(stmt, function(error, results){
+        if(error) throw error;
+        if(results.length) books = results;
+        // console.log(books)
+        res.render('home', {books: books});
+    });
 });
+
+// /* The handler for undefined routes */
+// app.get('*', function(req, res){
+//   console.log("error");
+// });
+
+
 
 /* Start the application server */
 app.listen(process.env.PORT || 3000, function(){

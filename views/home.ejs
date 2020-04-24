@@ -1,0 +1,55 @@
+<%- include ('templates/header'); -%>
+
+<div class='container'>
+	<div class='jumbotron'>
+		<h1> Library </h1>
+		<form action='/book' method='GET'>
+			<div class='form-group row'>
+				<label for='title' class='col-sm-4 col-form-label'>Book Title</label>
+				<div class='col-sm-4'>
+					<input type='text' class='form-control' id='title' name='title' required>
+				</div>
+			</div>
+			<div class='form-group row'>
+				<label for='author' class='col-sm-4 col-form-label'>Author</label>
+				<div class='col-sm-4'>
+					<input type='text' class='form-control' id='author' name='author' required>
+				</div>
+			</div>
+			<div class='form-group row'>
+				<label for='year' class='col-sm-4 col-form-label'>Year of Publication</label>
+				<div class='col-sm-4'>
+					<input type='text' class='form-control' id='year' name='year' required>
+				</div>
+			</div>
+			<div class='form-group row'>
+				<div class='col-sm-4'></div>
+				<div class='col-sm-4'>
+					<button class='btn btn-primary btn-block'>Search For Book</button>
+				</div>
+				<div class='col-sm-4'></div>
+			</div>
+		</form>
+	</div>
+	<div class='row'>
+        <%if(!books){%>
+            <h1 class='col-sm-12 nofound'>Empty database. Please add the first book!</h1>    
+        <%}
+        else{%>
+        	<table>
+        		<tr><th>Cover</th><th>Title</th><th>Published In</th></tr>
+        		<tr><td colspan="4"><hr/></td></tr>
+        		<%books.forEach(function(book){%>
+            		<tr>
+            		    <td><img src= '<%=book.cover%>'></image></td>
+            			<td><%=book.title%></td>
+            			<td><%=book.year%></td>
+            			<td><button class='btn btn-primary btn-block'>Checkout</button></td>
+            		</tr>
+            		<br>
+        		<%});%>
+        	</table>
+        <%}%>
+    </div>
+</div>
+<%- include ('templates/footer'); -%>
