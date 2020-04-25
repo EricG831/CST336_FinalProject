@@ -125,10 +125,6 @@ app.get('/checkout/:aid', function(req, res){
                'where FP_books.authorId=FP_author.authorId ' + 
                'and FP_books.authorId=' + req.params.aid + ';'
     connection.query(stmt, function(error, results){
-        // if(error) throw error;
-        // var name = results[0].firstName + ' ' + results[0].lastName;
-        // res.render('booksByAuthor', {name: name, books: results});     
-        
         if(error){
             throw error;
         } else if(results.length){      //books by author is in db
