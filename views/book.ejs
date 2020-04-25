@@ -1,0 +1,25 @@
+<%- include ('templates/header'); -%>
+
+<div class='container'>
+	<div class='jumbotron'>
+		<h1> Library </h1>
+	</div>
+
+    
+    <div class='row'>
+        <%if(!book){%>
+            <h1 class='col-sm-12 notfound'>CANNOT FIND YOUR BOOK !!!</h1>
+        <%}
+        else{%>
+            <img class='col-sm-4 portrait' src=<%=book.cover%> />
+		    <div class='col-sm-4 info'>
+		        <h3><%=book.title%></h3>
+	
+		        <div class='bio'>Publishing Year: <%=book.year%></div>
+	            <td><button class='btn btn-primary btn-block'>Checkout</button></td>
+		    </div>
+        <%}%>
+	</div>
+	
+</div>
+<%- include ('templates/footer'); -%>

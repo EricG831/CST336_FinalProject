@@ -31,6 +31,50 @@ app.get('/', function(req, res){
     });
 });
 
+//bookByTitle route
+app.get('/title', function(req, res){
+    console.log(req.query.title);
+     var stmt = 'select * from FP_books where title=\'' 
+                + req.query.title + '\';';
+    console.log(stmt);
+    var book = null;
+    connection.query(stmt, function(error, results){
+        if(error){
+            throw error;
+        } else if(results.length){      //book is in db
+            book = results[0];
+            console.log(book);
+            res.render('book', {book: book});
+        } else {                        //book is not in db - do this as a pop up later
+            console.log("Book not found");
+            res.render("error");
+        }
+    });
+});
+
+//bookByTitle route
+app.get('/year', function(req, res){
+    console.log(req.query.title);
+     var stmt = 'select * from FP_books where year=\'' 
+                + req.query.year + '\';';
+    console.log(stmt);
+    var book = null;
+    connection.query(stmt, function(error, results){
+        if(error){
+            throw error;
+        } else if(results.length){      //book is in db
+            book = results[0];
+            console.log(book);
+            res.render('book', {book: book});
+        } else {                        //book is not in db - do this as a pop up later
+            console.log("Book not found");
+            res.render("error");
+        }
+    });
+});
+
+
+// author routes
 app.get('/author', function(req, res){
     console.log(req.query.firstname, req.query.lastname);
      var stmt = 'select * from FP_author where firstName=\'' 
