@@ -26,7 +26,7 @@ app.get('/', function(req, res){
     connection.query(stmt, function(error, results){
         if(error) throw error;
         if(results.length) books = results;
-        console.log(books)
+        // console.log(books)
         res.render('home', {books: books});
     });
 });
@@ -97,7 +97,7 @@ app.get('/author', function(req, res){
     });
 });
 
-/* The handler for the /author/name/id route */
+/* The handler for the /author/authorId route */
 app.get('/author/:aid', function(req, res){
     var stmt = 'select * from FP_books, FP_author ' +
                'where FP_books.authorId=FP_author.authorId ' + 
@@ -119,12 +119,16 @@ app.get('/author/:aid', function(req, res){
     });
 });
 
-/* The handler for the /author/name/id route */
+/* The handler for the /checkout//bookId route */
 app.get('/checkout/:aid', function(req, res){
     var stmt = 'select * from FP_books, FP_author ' +
                'where FP_books.authorId=FP_author.authorId ' + 
-               'and FP_books.authorId=' + req.params.aid + ';'
+               'and FP_books.bookId=' + req.params.aid + ';'
     connection.query(stmt, function(error, results){
+        // if(error) throw error;
+        // var name = results[0].firstName + ' ' + results[0].lastName;
+        // res.render('booksByAuthor', {name: name, books: results});     
+        
         if(error){
             throw error;
         } else if(results.length){      //books by author is in db
