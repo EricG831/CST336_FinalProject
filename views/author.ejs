@@ -16,7 +16,7 @@
 		        <h3><%=author.firstName%> <%=author.lastName%></h3>
 	
 		        <div class='bio'><%=author.biography%></div>
-		        <button class='btn btn-primary btn-block'>Books Published by <%=author.firstName%> <%=author.lastName%></button>
+	            <a href='/author/<%=author.authorId%>'><h2>Books Published by <%=author.firstName%> <%=author.lastName%></h2></a>
 		    </div>
         <%}%>
 	</div>

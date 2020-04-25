@@ -1,0 +1,37 @@
+<%- include ('templates/header'); -%>
+
+<div class='container'>
+    <div class='jumbotron'>
+        <h1 style='text-align:center;'> FOUND AUTHOR </h1>
+        <div class='row'>
+            <div class='col-sm-4'></div>
+            <button class='col-sm-4 btn btn-info btn-block'onclick='location.href="/";'>Search Again</button>
+            <div class='col-sm-4'></div>
+        </div>
+    </div>
+    
+    <div class='row'>
+        <%if(!books){%>
+            <h1 class='col-sm-12 nofound'>Empty database. Please add the first book!</h1>    
+        <%}
+        else{%>
+        	<table>
+        		<tr><th>Cover</th><th>Title</th><th>AuthorID</th><th>Published In</th></tr>
+        		<tr><td colspan="4"><hr/></td></tr>
+        		<%books.forEach(function(book){%>
+            		<tr>
+            		    <td><img src= '<%=book.cover%>'></image></td>
+            			<td><%=book.title%></td>
+            			<td><%=book.authorId%></td>
+            			<td><%=book.year%></td>
+            			<td><button class='btn btn-primary btn-block'>Checkout</button></td>
+            		</tr>
+            		<br>
+        		<%});%>
+        	</table>
+        <%}%>
+    </div>
+    
+</div>
+
+<%- include ('templates/footer'); -%>

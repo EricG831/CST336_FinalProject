@@ -3,25 +3,32 @@
 <div class='container'>
 	<div class='jumbotron'>
 		<h1> Library </h1>
+		<form action='/title' method='GET'>
+			<div class='form-group row'>
+				<label for='firstname' class='col-sm-4 col-form-label'>Title Search:</label>
+				<div class='col-sm-4'>
+					<input type='text' class='form-control' id='title' name='title' placeholder='Book Title'required>
+						<button class='btn btn-primary btn-block'>Search Books By Tittle</button>
+				</div>
+			</div>
+		</form>
+		<form action='/year' method='GET'>
+			<div class='form-group row'>
+				<label for='firstname' class='col-sm-4 col-form-label'>Year Search:</label>
+				<div class='col-sm-4'>
+					<input type='text' class='form-control' id='year' name='year' placeholder='Year Book Was Published'required>
+					<button class='btn btn-primary btn-block'>Search Books By Publishing Year</button>
+				</div>
+			</div>
+		</form>
 		<form action='/author' method='GET'>
 			<div class='form-group row'>
-				<label for='firstname' class='col-sm-4 col-form-label'>First Name</label>
+				<label for='firstname' class='col-sm-4 col-form-label'>Author Search:</label>
 				<div class='col-sm-4'>
-					<input type='text' class='form-control' id='firstname' name='firstname' placeholder='Jane' required>
+					<input type='text' class='form-control' id='firstname' name='firstname' placeholder='First Name' required>
+					<input type='text' class='form-control' id='lastname' name='lastname' placeholder='Last Name' required>
+					<button class='btn btn-primary btn-block'>Search Authors</button>
 				</div>
-			</div>
-			<div class='form-group row'>
-				<label for='lastname' class='col-sm-4 col-form-label'>Last Name</label>
-				<div class='col-sm-4'>
-					<input type='text' class='form-control' id='lastname' name='lastname' placeholder='Doe' required>
-				</div>
-			</div>
-			<div class='form-group row'>
-				<div class='col-sm-4'></div>
-				<div class='col-sm-4'>
-					<button class='btn btn-primary btn-block'>Search Author</button>
-				</div>
-				<div class='col-sm-4'></div>
 			</div>
 		</form>
 	</div>
