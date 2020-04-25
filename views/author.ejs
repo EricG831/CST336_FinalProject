@@ -1,0 +1,25 @@
+<%- include ('templates/header'); -%>
+
+<div class='container'>
+	<div class='jumbotron'>
+		<h1> Library </h1>
+	</div>
+
+    
+    <div class='row'>
+        <%if(!author){%>
+            <h1 class='col-sm-12 notfound'>CANNOT FIND YOUR AUTHOR !!!</h1>
+        <%}
+        else{%>
+            <img class='col-sm-4 portrait' src=<%=author.portrait%> />
+		    <div class='col-sm-4 info'>
+		        <h3><%=author.firstName%> <%=author.lastName%></h3>
+	
+		        <div class='bio'><%=author.biography%></div>
+		        <button class='btn btn-primary btn-block'>Books Published by <%=author.firstName%> <%=author.lastName%></button>
+		    </div>
+        <%}%>
+	</div>
+	
+</div>
+<%- include ('templates/footer'); -%>

@@ -31,10 +31,31 @@ app.get('/', function(req, res){
     });
 });
 
-// /* The handler for undefined routes */
-// app.get('*', function(req, res){
-//   console.log("error");
-// });
+app.get('/author', function(req, res){
+    console.log(req.query.firstname, req.query.lastname);
+     var stmt = 'select * from FP_author where firstName=\'' 
+                + req.query.firstname + '\' and lastName=\'' 
+                + req.query.lastname + '\';';
+    console.log(stmt);
+    var author = null;
+    connection.query(stmt, function(error, results){
+        if(error){
+            throw error;
+        } else if(results.length){      //author is in db
+            author = results[0];
+            console.log(author);
+            res.render('author', {author: author});
+        } else {                        //author is not in db - do this as a pop up later
+            console.log("Author not found");
+            res.render("error");
+        }
+    });
+});
+
+/* The handler for undefined routes */
+app.get('*', function(req, res){
+  res.render('error');
+});
 
 
 
