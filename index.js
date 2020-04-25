@@ -31,6 +31,7 @@ app.get('/', function(req, res){
     });
 });
 
+
 //bookByTitle route
 app.get('/title', function(req, res){
     console.log(req.query.title);
@@ -52,7 +53,7 @@ app.get('/title', function(req, res){
     });
 });
 
-//bookByTitle route
+//bookByYear route
 app.get('/year', function(req, res){
     console.log(req.query.title);
      var stmt = 'select * from FP_books where year=\'' 
@@ -117,6 +118,29 @@ app.get('/author/:aid', function(req, res){
         }
     });
 });
+
+/* The handler for the /author/name/id route */
+app.get('/checkout/:aid', function(req, res){
+    var stmt = 'select * from FP_books, FP_author ' +
+               'where FP_books.authorId=FP_author.authorId ' + 
+               'and FP_books.authorId=' + req.params.aid + ';'
+    connection.query(stmt, function(error, results){
+        // if(error) throw error;
+        // var name = results[0].firstName + ' ' + results[0].lastName;
+        // res.render('booksByAuthor', {name: name, books: results});     
+        
+        if(error){
+            throw error;
+        } else if(results.length){      //books by author is in db
+            var name = results[0].firstName + ' ' + results[0].lastName;
+            res.render('checkout', {name: name, books: results});     
+        } else {                        //books by author is not in db - do this as a pop up later
+            console.log("No books by author found");
+            res.render("error");
+        }
+    });
+});
+
 
 /* The handler for undefined routes */
 app.get('*', function(req, res){

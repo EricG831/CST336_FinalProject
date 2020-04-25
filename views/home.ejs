@@ -45,7 +45,8 @@
             		    <td><img src= '<%=book.cover%>'></image></td>
             			<td><%=book.title%></td>
             			<td><%=book.year%></td>
-            			<td><button class='btn btn-primary btn-block'>Checkout</button></td>
+            			<!--<td><button class='btn btn-primary btn-block'>Checkout</button></td>-->
+            			<td><a href='/checkout/<%=book.bookId%>'><h2>Checkout</h2></a></td>
             		</tr>
             		<br>
         		<%});%>
