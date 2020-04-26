@@ -136,7 +136,7 @@ app.get('/author/:aid', function(req, res){
 });
 
 /* The handler for the /checkout//bookId route */
-app.get('/checkout/:aid', function(req, res){
+app.get('/checkout/:aid', check_auth, function(req, res){
     var stmt = 'select * from FP_books, FP_author ' +
                'where FP_books.authorId=FP_author.authorId ' + 
                'and FP_books.bookId=' + req.params.aid + ';'
@@ -148,7 +148,7 @@ app.get('/checkout/:aid', function(req, res){
             res.render('checkout', {name: name, books: results});     
         } else {                        
             console.log("No books by author found");
-            res.render("error", {loginError: false});
+            res.render("error");
         }
     });
 });
@@ -176,6 +176,7 @@ app.post('/login', function(req, res){
             books = results; 
             console.log("USER: " + user);
             console.log("BOOKS: " + books);
+            req.session.login = user;
             res.render('home',{user: user, books: books});
         } else {                        //user is not in db - do this as a pop up later
             console.log("User not found");
@@ -200,6 +201,18 @@ app.get('*', function(req, res){
   res.render('error');
 });
 
+
+function check_auth(req, res, next) {
+
+  //  if the user isn't logged in, redirect them to a login page
+  if(!req.session.login) {
+    res.redirect("/login");
+    return; 
+  }
+
+  //  the user is logged in, so call next()
+  next();
+}
 
 
 /* Start the application server */
