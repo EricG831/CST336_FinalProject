@@ -39,14 +39,15 @@ const connection = mysql.createConnection({
 connection.connect();
 
 /* The handler for the DEFAULT route */
+// could use ajax in the home page to dsiplay the auhtors name as well
 app.get('/', function(req, res){
-    var stmt = 'SELECT * FROM FP_books;';
+    var stmt = 'SELECT * FROM FP_books, FP_author where FP_books.authorId=FP_author.authorId;';
     console.log(stmt);
     var books = null;
     connection.query(stmt, function(error, results){
         if(error) throw error;
         if(results.length) books = results;
-        // console.log(books)
+        console.log(books)
         res.render('home', {books: books});
     });
 });
@@ -171,11 +172,8 @@ app.post('/login', function(req, res){
         if(error){
             throw error;
         } else if(results.length){      //user is in db
-            // console.log(results);
             user = results[results.length - 1].userName;
             books = results; 
-            console.log("USER: " + user);
-            console.log("BOOKS: " + books);
             req.session.login = user;
             res.render('home',{user: user, books: books});
         } else {                        //user is not in db - do this as a pop up later
