@@ -20,6 +20,9 @@
 				<div class='col-sm-4'></div>
 				<div class='col-sm-4'>
 					<button class='btn btn-primary btn-block'>Login</button>
+					<%if(loginError){%>
+			            <h1 class='col-sm-12 notfound'>Incorrect Credentials!</h1>
+			        <%}%>
 				</div>
 				<div class='col-sm-4'></div>
 			</div>

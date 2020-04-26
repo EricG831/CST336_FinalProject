@@ -148,14 +148,15 @@ app.get('/checkout/:aid', function(req, res){
             res.render('checkout', {name: name, books: results});     
         } else {                        
             console.log("No books by author found");
-            res.render("error");
+            res.render("error", {loginError: false});
         }
     });
 });
 
 /* The handlers for the login routes */
 app.get('/login', function(req, res){
-  res.render('login');
+    var loginError = false;
+    res.render('login', {loginError: loginError});
 });
 
 app.post('/login', function(req, res){
@@ -178,7 +179,8 @@ app.post('/login', function(req, res){
             res.render('home',{user: user, books: books});
         } else {                        //user is not in db - do this as a pop up later
             console.log("User not found");
-            res.render("error");
+            var loginError = true;
+            res.render("login", {loginError: loginError});
         }
     });
 });
