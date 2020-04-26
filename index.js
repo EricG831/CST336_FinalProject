@@ -191,8 +191,28 @@ app.get('/register', function(req, res){
   res.render('register');
 });
 
+// need to implement a way to avoid username duplicates
 app.post('/register', function(req, res){
-  console.log('post register');
+  console.log(req.body);
+  connection.query('SELECT COUNT(*) FROM FP_user;', function(error, result){
+      if(error) throw error;
+      if(result.length){
+            var userId = result[0]['COUNT(*)'] + 1;
+            var stmt = 'INSERT INTO FP_user ' +
+                      '(userId, userName, password) '+
+                      'VALUES ' +
+                      '(' + 
+                      userId + ',"' +
+                      req.body.username + '","' +
+                      req.body.password + '"' +
+                      ');';
+            console.log(stmt);
+            connection.query(stmt, function(error, result){
+                if(error) throw error;
+                res.redirect('/login');
+            })
+      }
+  });
 });
 
 
