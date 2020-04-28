@@ -32,15 +32,14 @@
 			</div>
 		</form>
 	</div>
-	<a href='/login'><h2>login</h2></a>
-	<td><a href='/register'><h2>Register</h2></a></td>
+
 	<div class='row'>
         <%if(!books){%>
             <h1 class='col-sm-12 nofound'>Empty database. Please add the first book!</h1>    
         <%}
         else{%>
         	<table>
-        		<tr><th>/Cover/</th><th>/Title/</th><th>/Year/</th><th>Author/</th></tr>
+        		<tr><th><h4> /Cover/ </h4></th><th><h4> /Title/ </h4></th><th><h4> /Year/ </h4></th><th><h4> /Author/ <h4></th></tr>
         		<tr><td colspan="4"><hr/></td></tr>
         		<%books.forEach(function(book){%>
             		<tr>
