@@ -42,7 +42,7 @@ app.get('/', function(req, res){
     connection.query(stmt, function(error, results){
         if(error) throw error;
         if(results.length) books = results;
-        console.log(books)
+        // console.log(books)
         res.render('home', {books: books});
     });
 });
@@ -207,7 +207,7 @@ app.post('/register', function(req, res){
 });
 
 /* The handlers for the Rental Confirmation routes */
-app.get('/rentalConfirmation/:aid', function(req, res){
+app.post('/rentalConfirmation/:aid', function(req, res){
     var stmt = 'select * from FP_user where userName =\''
                 + req.session.login + '\';';
                 
@@ -217,15 +217,47 @@ app.get('/rentalConfirmation/:aid', function(req, res){
             throw error;
         } else if(results.length){      //user is in db
            console.log(results[0].userId);
-           console.log(req.params.aid);
-        // write statement here to enter teh info into to the rentals table
+           var userId = results[0].userId;
+           var bookId = req.params.aid;
+           console.log(bookId);
+           
+           connection.query('SELECT COUNT(*) FROM FP_rental;', function(error, result){
+              if(error) throw error;
+              if(result.length){
+                    var rentalId = result[0]['COUNT(*)'] + 1;
+                    var stmt = 'INSERT INTO FP_rental ' +
+                              '(rentalId, userID, bookId) '+
+                              'VALUES ' +
+                              '(' + 
+                              rentalId + ',"' +
+                              userId + '","' +
+                              bookId + '"' +
+                              ');';
+                              
+                    //update the stock for the rented book 
+                    var updateStock = 'UPDATE FP_books SET inStock=inStock-1  WHERE bookId=\''+ bookId + '\';';
+                    connection.query(updateStock, function(error, result){
+                        if(error) throw error;
+                        if(result.length){
+                              console.log("Updated stock");
+                        }
+                    });
+                    
+                    //enter the info into to the rentals table
+                    console.log(stmt);
+                    connection.query(stmt, function(error, result){
+                        if(error) throw error;
+                        console.log("Rental Success");
+                        res.redirect('/');
+                    });
+              }
+            });
         } else {                        //user is not in db - do this as a pop up later
             console.log("User not found");
             var loginError = true;
             res.render("login", {loginError: loginError});
         }
     });
-    
 });
 
 /* The handler for undefined routes */
