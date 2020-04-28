@@ -12,17 +12,19 @@
         	<table>
         		<tr><th>Cover   -</th><th>Title -</th><th>Year    -</th><th>Stock  -</th><th>Author    -</th></tr>
         		<tr><td colspan="5"><hr/></td></tr>
-        		<%books.forEach(function(book){%>
-            		<tr>
-            		    <td><img src= '<%=book.cover%>'></image></td>
-            			<td><%=book.title%>     -</td>
-            			<td><%=book.year%>      -</td>
-            			<td><%=book.inStock%>   -</td>
-            			<td><%=name%>       -</td>
-            			<td><button class='btn btn-primary btn-block'>Confirm Rental</button></td>
-            		</tr>
-            		<br>
-        		<%});%>
+                <%books.forEach(function(book){%>
+                    <form action='/rentalConfirmation/<%=book.authorId%>' method='GET'>
+                        <tr>
+                        	<td><img src= '<%=book.cover%>'></image></td>
+                        	<td><%=book.title%>     -</td>
+                        	<td><%=book.year%>      -</td>
+                        	<td><%=book.inStock%>   -</td>
+                        	<td><%=name%>       -</td>
+                        	<td><button class='btn btn-primary btn-block'>Confirm Rental</button></td>
+                    	</tr>
+                        <br>
+                    </form>
+                <%});%>
         	</table>
         <%}%>
     </div>

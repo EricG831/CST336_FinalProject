@@ -12,8 +12,6 @@ var passport = require('passport');
 var flash = require('express-flash');
 var session = require('express-session');
 
-
-
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(methodOverride('_method'));
@@ -27,8 +25,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-
 /* Configure MySQL DBMS */
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -39,7 +35,6 @@ const connection = mysql.createConnection({
 connection.connect();
 
 /* The handler for the DEFAULT route */
-// could use ajax in the home page to dsiplay the auhtors name as well
 app.get('/', function(req, res){
     var stmt = 'SELECT * FROM FP_books, FP_author where FP_books.authorId=FP_author.authorId;';
     console.log(stmt);
@@ -51,7 +46,6 @@ app.get('/', function(req, res){
         res.render('home', {books: books});
     });
 });
-
 
 /* The handler for the /bookByTitle route */
 app.get('/title', function(req, res){
@@ -94,7 +88,6 @@ app.get('/year', function(req, res){
         }
     });
 });
-
 
 /* The handler for the /author route */
 app.get('/author', function(req, res){
@@ -146,7 +139,7 @@ app.get('/checkout/:aid', check_auth, function(req, res){
             throw error;
         } else if(results.length){ 
             var name = results[0].firstName + ' ' + results[0].lastName;
-            res.render('checkout', {name: name, books: results});     
+            res.render('checkout', {name: name, books: results, bookId: req.params.aid});     
         } else {                        
             console.log("No books by author found");
             res.render("error");
@@ -162,7 +155,7 @@ app.get('/login', function(req, res){
 
 app.post('/login', function(req, res){
 
-     var stmt = 'select * from FP_books, FP_user where userName=\'' 
+    var stmt = 'select * from FP_books, FP_user where userName=\'' 
                 + req.body.username + '\' and password=\'' 
                 + req.body.password + '\';';
     console.log(stmt);
@@ -213,13 +206,34 @@ app.post('/register', function(req, res){
   });
 });
 
+/* The handlers for the Rental Confirmation routes */
+app.get('/rentalConfirmation/:aid', function(req, res){
+    var stmt = 'select * from FP_user where userName =\''
+                + req.session.login + '\';';
+                
+    console.log(stmt);
+    connection.query(stmt, function(error, results){
+        if(error){
+            throw error;
+        } else if(results.length){      //user is in db
+           console.log(results[0].userId);
+           console.log(req.params.aid);
+        // write statement here to enter teh info into to the rentals table
+        } else {                        //user is not in db - do this as a pop up later
+            console.log("User not found");
+            var loginError = true;
+            res.render("login", {loginError: loginError});
+        }
+    });
+    
+});
 
 /* The handler for undefined routes */
 app.get('*', function(req, res){
   res.render('error');
 });
 
-
+/* Middleware for authentication */
 function check_auth(req, res, next) {
 
   //  if the user isn't logged in, redirect them to a login page
