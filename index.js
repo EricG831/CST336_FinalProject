@@ -11,6 +11,7 @@ var app = express();
 var passport = require('passport');
 var flash = require('express-flash');
 var session = require('express-session');
+var async = require('async');
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -260,10 +261,59 @@ app.post('/rentalConfirmation/:aid', function(req, res){
     });
 });
 
-/* The handler for undefined routes */
-app.get('*', function(req, res){
-  res.render('error');
+/* The handlers for the rentals routes */
+app.get('/myRentals', check_auth, function(req, res){
+    //pass on the username and all the books that user has rented 
+    var username = req.session.login;
+    
+    //1)retrieve the userId
+        //search in db for users with the userID;
+    var getUser = 'select * from FP_user where userName =\''
+                + username + '\';';
+    connection.query(getUser, function(error, result){
+      if(error) throw error;
+      if(result.length){
+            var user = result;
+            console.log(user);
+            console.log(user[0].userId);
+            var userId = user[0].userId;
+            //retrieve all bookId's from the rentals table that the user has rented
+            var getRentalsFromUser = 'select * from FP_rental where userId =\''
+                                   + userId + '\';';
+                                   
+            console.log(getRentalsFromUser);
+            
+            var rentedBooks = [];
+            
+            connection.query(getRentalsFromUser, function(error, result){
+                if(error) throw error;
+                    
+                // make this a function
+                // for(let i = 0; i < rentals.length; i++){
+                    //     var getRentedBooks = 'select * from FP_books where bookId =\''
+                    //                       + rentals[i].bookId + '\';';
+                    //     console.log(getRentedBooks);
+                    //     connection.query(getRentedBooks, function(error, result){
+                    //         if(error) throw error;
+                    //         if(result.length){
+                    //             console.log(result[0]);
+                    //             console.log(result[0].title);
+                    //             console.log("Pushing.....");
+                    //             rentedBooks.push(result[0]);
+                    //             console.log(rentedBooks);
+                    //             console.log("pushed");
+                    //         }
+                    //     });
+                    // }
+            
+                console.log("done");
+                res.render('myRentals', {books: rentedBooks, username: username});
+            });
+      }
+    });
+   
 });
+
 
 /* Middleware for authentication */
 function check_auth(req, res, next) {
@@ -282,4 +332,4 @@ function check_auth(req, res, next) {
 /* Start the application server */
 app.listen(process.env.PORT || 3000, function(){
     console.log('Server has been started');
-})
+});
