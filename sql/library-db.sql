@@ -41,7 +41,7 @@ DROP TABLE IF EXISTS `FP_user`;
 CREATE TABLE `FP_user` (
   `userId` mediumint(9) NOT NULL,
   `userName` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(25) COLLATE utf8_unicode_ci NOT NULL
+  `password` varchar(72) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -49,17 +49,48 @@ CREATE TABLE `FP_user` (
 --
 
 INSERT INTO `FP_user` (`userId`, `userName`, `password`) VALUES
-(1, 'admin', 'admin'),
-(2, 'jane', 'doe'),
-(3, 'alice', 'alice'),
-(4, 'bob', 'bob'),
-(5, 'jojo', '123'),
-(6, 'koda', 'k@k'),
-(7, 'mac360', 'mc'),
-(8, 'Thor', 'hammer'),
-(9, 'User23', 'llk'),
-(10, 'ericg', 'ericg');
-
+(1, 'admin', '$2b$10$w8ZRlYCzT0j74bWWZ9sBr.ZZm3q1pItcJEij6K3qdgm4TZCljUXFq'),
+(2, 'jane', '$2b$10$QFZ0UjxfTOs41Y4xxCHz6.0WmVEQR0/.2Nv/ypCJQr1Bq0bfd.Vsi'),
+(3, 'alice', '$2b$10$Ko66WFnA059MYODO/HMwneq9N3geB2nBZpu5HsDXX5REWvAer7lTm'),
+(4, 'bob', '$2b$10$WatkK8uLiaWQPxtqUaqRs.02IY4xavY9E60NthOeqMv0IRSkMHlgi'),
+(5, 'jojo', '$2b$10$7/7wxR5wB8WhqidnwvnC6OGiOTOe0uSKb5ZBAJBTzp2cNPVSQkQJy'),
+(6, 'koda', '$2b$10$k3rNlPMwrYOKVHEvWZpZI.F6fnpQnPEK8b5eW7dQlcIWvNVgAjWwq'),
+(7, 'mac360', '$2b$10$8LjQVIWt9joCh6dzF/uYAuVeP35S4KF5XFXBXoOv4H0Tk9mp01CLi'),
+(8, 'Thor', '$2b$10$JhL/3kA5Zhr8IsvVzanifeK3TTpNhovRtn4Ex/IMscmIL3/eisV9u'),
+(9, 'User23', '$2b$10$JhL/3kA5Zhr8IsvVzanifeK3TTpNhovRtn4Ex/IMscmIL3/eisV9u'),
+(10, 'ericg', '$2b$10$WTRQpIA3drkNno7L4v2okOJ2k4Cjsn7PzfCODR.DwWQtMD5JcaJa.'),
+(11, 'yvcruz', '$2b$10$SEGC0AgG/m758/IiTFG9yOorcj5i3HoZvmF/SRDrAOM1ubHNqgVHW'),
+(12, 'oliver', '$2b$10$5/YVOZbTLfXjXYexEkZ6rOgapWS.lu.n6KLIYQqjhPG8UAggC2TTi'),
+(13, 'liz', '$2b$10$Q69YK5HHbz8zZTBoNNT8eeLepHMdin8wBADPFgEcWPQG/3ukIcPZ2'),
+(14, 'dan', '$2b$10$TKctVYHcVznQvpEtuH53p..0sr7RAeMAeleA44fDBjprMx27vr/JW'),
+(15, 'sam', '$2b$10$HzHsg6ImKeLN3krAP9Q6AempIEcDB8SCXwqnvLeqkqiZz7BpNM9Dq'),
+(16, 'luke', '$2b$10$iwOkxnil0O9txjB/3Hc37uiLAdq80BzJTKuFMg.MZrXty4NwUBsEK'),
+(17, 'jbl', '$2b$10$T7MX6HrleJsNRfi6BXohr.INaF3TjuzJMISJ.2ntkWd62sF1Wvy7.'),
+(18, 'jake', '$2b$10$s.jqPfu5m2kYI3G2.3c7vOsyNe2BMtyfV1J4izwtpzZOTm1Io3E3u'),
+(19, 'usr', '$2b$10$dqzhJGwikcv5VvUzNmKiw.DG.y4te173IEFinULXy5p.odDumRTIe'),
+(20, 'abc', '$2b$10$Orb9/J//8bqGRY10OoopBet96aNwA.hAiYFgDat/VpRK7VPB7kN5S');
+--
+-- passwords for first 20 accounts
+-- 1 admin
+-- 2 doe
+-- 3 alice
+-- 4 bob
+-- 5 123
+-- 6 k@k
+-- 7 mc 
+-- 8 hammer 
+-- 9 llk 
+-- 10 ericg
+-- 11 yvcruz
+-- 12 321
+-- 13 turttle
+-- 14 iel
+-- 15 smith 
+-- 16 cage
+-- 17 !!!
+-- 18 jake
+-- 19 pwd
+-- 20 123
 -- --------------------------------------------------------
 
 --
