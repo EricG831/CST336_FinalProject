@@ -13,17 +13,21 @@
         	<table>
         		<tr><th><h4> /Cover/ </h4></th><th><h4> /Title/ </h4></th><th><h4> /Year/ </h4></th><th><h4> /Author/ <h4></th></tr>
         		<tr><td colspan="4"><hr/></td></tr>
-        		<%books.forEach(function(book){%>
-            		<tr>
-            			<form action='/checkout/<%=book.bookId%>' method='GET'>
-            				<td><img src= '<%=book.cover%>'></image></td>
-	            			<td><%=book.title%></td>
-	            			<td><%=book.year%></td>
-	            			<td><%=book.firstName%> <%=book.lastName%></td>
-	            			<td><button class='btn btn-primary btn-block'>Return</button></td>
-            			</form>
-            		</tr>
-            		<br>
+        		<%rentedBooks.forEach(function(rentedBook){%>
+            		<%books.forEach(function(book){%>
+            			<%if(book.bookId == rentedBook){%>
+            			<tr>
+	            			<form action='/checkout/<%=book.bookId%>' method='GET'>
+	            				<td><img src= '<%=book.cover%>'></image></td>
+		            			<td><%=book.title%></td>
+		            			<td><%=book.year%></td>
+		            			<td><%=book.firstName%> <%=book.lastName%></td>
+		            			<td><button class='btn btn-primary btn-block'>Return</button></td>
+	            			</form>
+	            		</tr>
+	            		<br>
+	            		<%}%>
+	        		<%});%>
         		<%});%>
         	</table>
         <%}%>

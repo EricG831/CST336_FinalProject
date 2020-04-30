@@ -270,8 +270,10 @@ app.get('/myRentals', check_auth, function(req, res){
         //search in db for users with the userID;
     var getUser = 'select * from FP_user where userName =\''
                 + username + '\';';
+                
     connection.query(getUser, function(error, result){
       if(error) throw error;
+      
       if(result.length){
             var user = result;
             console.log(user);
@@ -279,7 +281,7 @@ app.get('/myRentals', check_auth, function(req, res){
             var userId = user[0].userId;
             //retrieve all bookId's from the rentals table that the user has rented
             var getRentalsFromUser = 'select * from FP_rental where userId =\''
-                                   + userId + '\';';
+                                  + userId + '\';';
                                    
             console.log(getRentalsFromUser);
             
@@ -287,31 +289,37 @@ app.get('/myRentals', check_auth, function(req, res){
             
             connection.query(getRentalsFromUser, function(error, result){
                 if(error) throw error;
+                
+                var rentals = result;
+                var rentalsBookId = [];
+                
+                for(let i = 0; i < rentals.length; i++){
+                    console.log(rentals[i].bookId);
+                    rentalsBookId.push(rentals[i].bookId);
+                }
+                
+                var getAllBooks = 'SELECT * FROM FP_books;';
+                
+                console.log("inside 2nd to last query");
+                console.log(getAllBooks);
+                
+                connection.query(getAllBooks, function(error, booksResults){
+                    if(error) throw error;
                     
-                // make this a function
-                // for(let i = 0; i < rentals.length; i++){
-                    //     var getRentedBooks = 'select * from FP_books where bookId =\''
-                    //                       + rentals[i].bookId + '\';';
-                    //     console.log(getRentedBooks);
-                    //     connection.query(getRentedBooks, function(error, result){
-                    //         if(error) throw error;
-                    //         if(result.length){
-                    //             console.log(result[0]);
-                    //             console.log(result[0].title);
-                    //             console.log("Pushing.....");
-                    //             rentedBooks.push(result[0]);
-                    //             console.log(rentedBooks);
-                    //             console.log("pushed");
-                    //         }
-                    //     });
-                    // }
-            
-                console.log("done");
-                res.render('myRentals', {books: rentedBooks, username: username});
+                    var allBooks = booksResults;
+
+                    console.log("All books: ");
+                    console.log(allBooks);
+                    console.log("Rentals ID: ");
+                    console.log(rentalsBookId);
+                    console.log("inside last query");
+                    
+                    res.render('myRentals', {rentedBooks: rentalsBookId, books: allBooks, username: username});
+                });
+    
             });
       }
     });
-   
 });
 
 
