@@ -1,0 +1,48 @@
+.body{
+    background-color:green;
+}
+.jumbotron{
+    margin-bottom: 2em;
+}
+.searchLabel{
+    font-size: 20px;
+}
+
+.bookLabels{
+    
+    font-size: 20px;
+    padding-left:125px;
+}
+
+.bookTable{
+    padding-left: 70px;
+}
+
+.bookHeadings{
+    font-size: 50px;
+    padding-left: 50px;
+    color:blue;
+}
+
+.headingSize{
+    font-size: 25px;
+    
+}
+.row2{
+   margin:0px;
+    
+    margin-bottom: 200px;
+}
+.availBook{
+    padding-top: 60px;
+    font-size: 60px;
+    margin-bottom: 0px;
+    margin:0px;
+    text-align:center;
+}
+.hr1{
+    width:50%;text-align:left;margin-right:520;
+    color:gray;background-color:gray;
+    height:2px;
+    margin-bottom: 0px;
+}
