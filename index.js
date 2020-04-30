@@ -322,6 +322,39 @@ app.get('/myRentals', check_auth, function(req, res){
     });
 });
 
+app.post('/return/:aid', check_auth,  function(req, res){
+    var getRental = 'select * from FP_rental where FP_rental.rentalId=\'' + req.params.aid + '\';';
+        // var stmt = 'select * from FP_author where firstName=\'' 
+        //         + req.query.firstname + '\' and lastName=\'' 
+        //         + req.query.lastname + '\';';
+    connection.query(getRental, function(error, results){
+        if(error){
+            throw error;
+        } else if(results.length){ 
+            var rental = results[0];
+            console.log(rental);
+            //update the stock for the book and delete the rental
+                    //update the stock for the rented book 
+                    console.log("BookId for the rental")
+                    console.log(rental.bookId)
+                    var updateStock = 'UPDATE FP_books SET inStock=inStock+1  WHERE bookId=\''+ rental.bookId + '\';';
+                    console.log(updateStock);
+                    connection.query(updateStock, function(error, result){
+                        if(error) throw error;
+                        console.log("Updated (+) stock");
+                        // query to delete the rental
+                        var deleteRental = 'DELETE from FP_rental WHERE rentalId='+ req.params.aid + ';';
+                        connection.query(deleteRental, function(error, results) {
+                            if(error){
+                                throw error;
+                            }
+                            console.log("deleted");
+                            res.redirect('/');
+                        })
+                    });
+        }
+    });
+});
 
 /* Middleware for authentication */
 function check_auth(req, res, next) {

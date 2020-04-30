@@ -6,7 +6,7 @@
 	</div>
 
 	<div class='row'>
-        <%if(!books){%>
+        <%if(rentedBooks.length == 0){%>
             <h1 class='col-sm-12 nofound'>No Active Rentals!</h1>    
         <%}
         else{%>
@@ -17,7 +17,7 @@
             		<%books.forEach(function(book){%>
             			<%if(book.bookId == rentedBook.bookId){%>
             			<tr>
-	            			<form action='/checkout/<%=rentedBook.rentalId%>' method='GET'>
+	            			<form action='/return/<%=rentedBook.rentalId%>' method='POST'>
 	            				<td><img src= '<%=book.cover%>'></image></td>
 		            			<td><%=book.title%></td>
 		            			<td><%=book.year%></td>
