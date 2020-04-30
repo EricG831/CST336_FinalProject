@@ -3,56 +3,73 @@
 <div class='container'>
 	<div class='jumbotron'>
 		<h1> Library </h1>
+		<br>
 		<form action='/title' method='GET'>
 			<div class='form-group row'>
-				<label for='firstname' class='col-sm-4 col-form-label'>Title Search:</label>
-				<div class='col-sm-4'>
-					<input type='text' class='form-control' id='title' name='title' placeholder='Book Title'required>
-						<button class='btn btn-primary btn-block'>Search Books By Tittle</button>
+				<div class='searchLabel'>
+				<label for='firstname' class='col-sm-1 col-form-label'>Title Search:</label>
 				</div>
-			</div>
-		</form>
-		<form action='/year' method='GET'>
-			<div class='form-group row'>
-				<label for='firstname' class='col-sm-4 col-form-label'>Year Search:</label>
-				<div class='col-sm-4'>
-					<input type='text' class='form-control' id='year' name='year' placeholder='Year Book Was Published'required>
-					<button class='btn btn-primary btn-block'>Search Books By Publishing Year</button>
+				<div>
+					<div class='col-sm-4'>
+					<input type='text' class='form-control' id='title'  name='title' placeholder='Book Title'required>
+						<button class='btn btn-primary btn-block'>Search Books By Tittle</button>
+					</div>
 				</div>
 			</div>
 		</form>
 		<form action='/author' method='GET'>
 			<div class='form-group row'>
-				<label for='firstname' class='col-sm-4 col-form-label'>Author Search:</label>
+				<div class='searchLabel'>
+				<label for='firstname' class='col-sm-1 col-form-label'>Author Search:</label>
+				</div>
 				<div class='col-sm-4'>
 					<input type='text' class='form-control' id='firstname' name='firstname' placeholder='First Name' required>
+					
 					<input type='text' class='form-control' id='lastname' name='lastname' placeholder='Last Name' required>
 					<button class='btn btn-primary btn-block'>Search Authors</button>
 				</div>
 			</div>
 		</form>
+		<form action='/year' method='GET'>
+			<div class='form-group row'>
+				<div class='searchLabel'>
+			<label for='firstname' class='col-sm-1 col-form-label'>Year Search:</label>
+			</div>
+				<div class='col-sm-4'>
+					<input type='text' class='form-control' maxlength='4' id='year' name='year' placeholder='Year Book Was Published'required>
+					<button class='btn btn-primary btn-block'>Search Books By Publishing Year</button>
+				</div>
+			</div>
+		</form>
 	</div>
 
-	<div class='row'>
+			<h5 class="availBook">Available Books</h5>
+			<hr class='hr1'>
+	<div class='row2'>
         <%if(!books){%>
             <h1 class='col-sm-12 nofound'>Empty database. Please add the first book!</h1>    
         <%}
         else{%>
         	<table>
-        		<tr><th><h4> /Cover/ </h4></th><th><h4> /Title/ </h4></th><th><h4> /Year/ </h4></th><th><h4> /Author/ <h4></th></tr>
+        		<tr class='bookHeadings'><th><h4 style="font-size:30px;padding-left:20px"> Cover </h4></th><th><h4 style="font-size:30px;padding-left:90px"> Title </h4></th>
+        		<th><h4 style="font-size:30px;padding-left:70px"> Year </h4></th>
+        		<th><h4 style="font-size:30px;padding-left:80px"> Author <h4></th></tr>
         		<tr><td colspan="4"><hr/></td></tr>
+        		<tr><td colspan="10"><hr/></td></tr>
         		<%books.forEach(function(book){%>
-            		<tr>
+            		<tr class= 'bookLabels'>
             			<form action='/checkout/<%=book.bookId%>' method='GET'>
             				<td><img src= '<%=book.cover%>'></image></td>
-	            			<td><%=book.title%></td>
-	            			<td><%=book.year%></td>
-	            			<td><%=book.firstName%> <%=book.lastName%></td>
-	            			<td><button class='btn btn-primary btn-block'>Checkout</button></td>
+	            			<td class='bookTable'><%=book.title%></td>
+	            			<td class='bookTable'><%=book.year%></td>
+	            			<td class='bookTable'><%=book.firstName%> <%=book.lastName%></td>
+	            			<td class='bookTable'><button class='btn btn-primary btn-block'>Checkout</button></td>
+	            			
             			</form>
             		</tr>
             		<br>
         		<%});%>
+
         	</table>
         <%}%>
     </div>
