@@ -295,7 +295,7 @@ app.get('/myRentals', check_auth, function(req, res){
                 
                 for(let i = 0; i < rentals.length; i++){
                     console.log(rentals[i].bookId);
-                    rentalsBookId.push(rentals[i].bookId);
+                    rentalsBookId.push(rentals[i]);
                 }
                 
                 var getAllBooks = 'SELECT * FROM FP_books;';

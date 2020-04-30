@@ -15,9 +15,9 @@
         		<tr><td colspan="4"><hr/></td></tr>
         		<%rentedBooks.forEach(function(rentedBook){%>
             		<%books.forEach(function(book){%>
-            			<%if(book.bookId == rentedBook){%>
+            			<%if(book.bookId == rentedBook.bookId){%>
             			<tr>
-	            			<form action='/checkout/<%=book.bookId%>' method='GET'>
+	            			<form action='/checkout/<%=rentedBook.rentalId%>' method='GET'>
 	            				<td><img src= '<%=book.cover%>'></image></td>
 		            			<td><%=book.title%></td>
 		            			<td><%=book.year%></td>
