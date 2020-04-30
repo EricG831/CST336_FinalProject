@@ -12,6 +12,7 @@ var passport = require('passport');
 var flash = require('express-flash');
 var session = require('express-session');
 var async = require('async');
+var bcrypt = require('bcrypt');
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: false}));
@@ -29,8 +30,8 @@ app.use(passport.session());
 /* Configure MySQL DBMS */
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'ericg',
-    password: 'ericg',
+    user: 'yvcruz',
+    password: 'yvcruz',
     database: 'library_db'
 });
 connection.connect();
@@ -52,7 +53,7 @@ app.get('/', function(req, res){
 app.get('/title', function(req, res){
     console.log(req.query.title);
      var stmt = 'select * from FP_books where title=\'' 
-                + req.query.title + '\';';
+                + req.query.title + '\'';
     console.log(stmt);
     var book = null;
     connection.query(stmt, function(error, results){
@@ -73,7 +74,7 @@ app.get('/title', function(req, res){
 app.get('/year', function(req, res){
     console.log(req.query.title);
      var stmt = 'select * from FP_books where year=\'' 
-                + req.query.year + '\';';
+                + req.query.year + '\'';
     console.log(stmt);
     var book = null;
     connection.query(stmt, function(error, results){
@@ -95,7 +96,7 @@ app.get('/author', function(req, res){
     console.log(req.query.firstname, req.query.lastname);
     var stmt = 'select * from FP_author where firstName=\'' 
                 + req.query.firstname + '\' and lastName=\'' 
-                + req.query.lastname + '\';';
+                + req.query.lastname + '\'';
     console.log(stmt);
     var author = null;
     connection.query(stmt, function(error, results){
@@ -116,7 +117,7 @@ app.get('/author', function(req, res){
 app.get('/author/:aid', function(req, res){
     var stmt = 'select * from FP_books, FP_author ' +
                'where FP_books.authorId=FP_author.authorId ' + 
-               'and FP_books.authorId=' + req.params.aid + ';'
+               'and FP_books.authorId=\'' + req.params.aid + '\'';
     connection.query(stmt, function(error, results){
         if(error){
             throw error;
@@ -134,7 +135,7 @@ app.get('/author/:aid', function(req, res){
 app.get('/checkout/:aid', check_auth, function(req, res){
     var stmt = 'select * from FP_books, FP_author ' +
                'where FP_books.authorId=FP_author.authorId ' + 
-               'and FP_books.bookId=' + req.params.aid + ';'
+               'and FP_books.bookId=\'' + req.params.aid + '\'';
     connection.query(stmt, function(error, results){
         if(error){
             throw error;
@@ -157,60 +158,73 @@ app.get('/login', function(req, res){
 app.post('/login', function(req, res){
 
     var stmt = 'select * from FP_books, FP_user where userName=\'' 
-                + req.body.username + '\' and password=\'' 
-                + req.body.password + '\';';
+                + req.body.username + '\'';
     console.log(stmt);
     var user = null;
     var books = null;
     connection.query(stmt, function(error, results){
-        if(error){
-            throw error;
-        } else if(results.length){      //user is in db
-            user = results[results.length - 1].userName;
-            books = results; 
-            req.session.login = user;
-            res.render('home',{user: user, books: books});
+        //console.log(results);
+        if(error) throw error;
+        if(results.length){      //user is in db
+            //console.log("Hash pwd:" + results[0].password);
+            bcrypt.compare(req.body.password, results[0].password, function(error, result){
+                if(error) throw error;
+                //console.log(result);
+                if (result) {
+                    user = results[results.length - 1].userName;
+                    books = results; 
+                    req.session.login = user;
+                    res.render('home',{user: user, books: books});
+                }else {
+                    console.log("Incorrect Password!");
+                    var loginError = true;
+                    res.render('login', {loginError: loginError});
+                }
+            });         
         } else {                        //user is not in db - do this as a pop up later
             console.log("User not found");
             var loginError = true;
-            res.render("login", {loginError: loginError});
+            res.render('login', {loginError: loginError});
         }
     });
 });
 
 /* The handlers for the Register routes */
 app.get('/register', function(req, res){
-  res.render('register');
+  res.render('register', {regError: false});
 });
-
 // need to implement a way to avoid username duplicates
 app.post('/register', function(req, res){
-  console.log(req.body);
-  connection.query('SELECT COUNT(*) FROM FP_user;', function(error, result){
+  //console.log(req.body);
+  var st = 'SELECT * FROM FP_user WHERE userName = ?'; 
+  let dat = req.body.username;
+  connection.query(st, dat, function(error, result){
       if(error) throw error;
-      if(result.length){
-            var userId = result[0]['COUNT(*)'] + 1;
-            var stmt = 'INSERT INTO FP_user ' +
-                      '(userId, userName, password) '+
-                      'VALUES ' +
-                      '(' + 
-                      userId + ',"' +
-                      req.body.username + '","' +
-                      req.body.password + '"' +
-                      ');';
-            console.log(stmt);
-            connection.query(stmt, function(error, result){
-                if(error) throw error;
-                res.redirect('/login');
-            })
-      }
-  });
+      if(result.length < 1){
+            //var userId = result[0]['COUNT(*)'] + 1
+            let salt = 10;
+            bcrypt.hash(req.body.password, salt, function(error, hash){
+                if(error) throw error; 
+                var stmt = 'INSERT INTO FP_user ' +
+                      '(userName, password) VALUES (?, ?)';
+                console.log(stmt);
+                let data = [req.body.username, hash];
+                connection.query(stmt,data, function(error, result){
+                    if(error) throw error;
+                    res.redirect('/login');
+                });
+            });
+        }
+        else {
+            res.render('register', {regError: true});
+        }
+    });
 });
 
 /* The handlers for the Rental Confirmation routes */
 app.post('/rentalConfirmation/:aid', function(req, res){
     var stmt = 'select * from FP_user where userName =\''
-                + req.session.login + '\';';
+                + req.session.login + '\'';
                 
     console.log(stmt);
     connection.query(stmt, function(error, results){
@@ -221,6 +235,7 @@ app.post('/rentalConfirmation/:aid', function(req, res){
            var userId = results[0].userId;
            var bookId = req.params.aid;
            console.log(bookId);
+        
            
            connection.query('SELECT COUNT(*) FROM FP_rental;', function(error, result){
               if(error) throw error;
@@ -269,7 +284,7 @@ app.get('/myRentals', check_auth, function(req, res){
     //1)retrieve the userId
         //search in db for users with the userID;
     var getUser = 'select * from FP_user where userName =\''
-                + username + '\';';
+                + username + '\'';
                 
     connection.query(getUser, function(error, result){
       if(error) throw error;
@@ -281,7 +296,7 @@ app.get('/myRentals', check_auth, function(req, res){
             var userId = user[0].userId;
             //retrieve all bookId's from the rentals table that the user has rented
             var getRentalsFromUser = 'select * from FP_rental where userId =\''
-                                  + userId + '\';';
+                                  + userId + '\'';
                                    
             console.log(getRentalsFromUser);
             
@@ -323,10 +338,10 @@ app.get('/myRentals', check_auth, function(req, res){
 });
 
 app.post('/return/:aid', check_auth,  function(req, res){
-    var getRental = 'select * from FP_rental where FP_rental.rentalId=\'' + req.params.aid + '\';';
+    var getRental = 'select * from FP_rental where FP_rental.rentalId=\'' + req.params.aid + '\'';
         // var stmt = 'select * from FP_author where firstName=\'' 
         //         + req.query.firstname + '\' and lastName=\'' 
-        //         + req.query.lastname + '\';';
+        //         + req.query.lastname + '\'';
     connection.query(getRental, function(error, results){
         if(error){
             throw error;
@@ -337,13 +352,13 @@ app.post('/return/:aid', check_auth,  function(req, res){
                     //update the stock for the rented book 
                     console.log("BookId for the rental")
                     console.log(rental.bookId)
-                    var updateStock = 'UPDATE FP_books SET inStock=inStock+1  WHERE bookId=\''+ rental.bookId + '\';';
+                    var updateStock = 'UPDATE FP_books SET inStock=inStock+1  WHERE bookId=\''+ rental.bookId + '\'';
                     console.log(updateStock);
                     connection.query(updateStock, function(error, result){
                         if(error) throw error;
                         console.log("Updated (+) stock");
                         // query to delete the rental
-                        var deleteRental = 'DELETE from FP_rental WHERE rentalId='+ req.params.aid + ';';
+                        var deleteRental = 'DELETE from FP_rental WHERE rentalId=\''+ req.params.aid + '\'';
                         connection.query(deleteRental, function(error, results) {
                             if(error){
                                 throw error;
@@ -358,17 +373,14 @@ app.post('/return/:aid', check_auth,  function(req, res){
 
 /* Middleware for authentication */
 function check_auth(req, res, next) {
-
   //  if the user isn't logged in, redirect them to a login page
   if(!req.session.login) {
     res.redirect("/login");
     return; 
   }
-
   //  the user is logged in, so call next()
   next();
 }
-
 
 /* Start the application server */
 app.listen(process.env.PORT || 3000, function(){
