@@ -24,6 +24,9 @@
 				<button class='btn btn-primary btn-block'>Create Account</button>
 			</div>
 			<div class='col-sm-4'></div>
+			<%if(regError){%>
+				<h1 class='col-sm-12 notfound'>Account already exists!</h1>
+			<%}%>
 		</div>
 	</form>
 </div>
