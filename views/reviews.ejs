@@ -1,0 +1,51 @@
+<%- include ('templates/header'); -%>
+
+<div>
+					<div class='col-sm-4'>
+					<input type='text' class='form-control' id='title'  name='title' placeholder='Book Title'required>
+					<input type='text' class='form-control' id='name' name='firstname' placeholder='First Name' required>
+						<button class='sumbit'>Search Books By Tittle</button>
+					</div>
+				</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+      
+  $(".sumbit").on("click touchstart", function(e) {
+    $.ajax({
+        method: "POST",
+        url: "https://goodreadsraygorodskijv1.p.rapidapi.com/getBookReviewsByTitle",
+        contentType:"application/json",
+        dataType:"json",
+        headers: {
+		"x-rapidapi-host": "GoodreadsraygorodskijV1.p.rapidapi.com",
+		"x-rapidapi-key": "e0b97b1d59mshd0f89eae80b2cedp16b7a5jsn2d0de5fa12b4",
+		"content-type": "application/x-www-form-urlencoded"
+	    },
+        data: JSON.stringify({
+            "title": $("#title").val(),
+		    "authorName": $("#name").val(),
+		    "apiKey": "xXqsFnZFScnn2BMCyGodg"
+		    
+        }),
+        sucess: function(data) {
+            console.log('result of call of POST', data);
+        },
+        error: function(xhr, status) {
+            console.log('error calling POST', status);
+        },
+        complete: function(){
+            
+        }
+    });
+});
+
+</script>
+
+
+
+
+
+
+<%- include ('templates/footer'); -%>
