@@ -30,8 +30,8 @@ app.use(passport.session());
 /* Configure MySQL DBMS */
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'yvcruz',
-    password: 'yvcruz',
+    user: 'ericg',
+    password: 'ericg',
     database: 'library_db'
 });
 connection.connect();
@@ -174,7 +174,16 @@ app.post('/login', function(req, res){
                     user = results[results.length - 1].userName;
                     books = results; 
                     req.session.login = user;
-                    res.render('home',{user: user, books: books});
+                    var redirectToHome = 'SELECT * FROM FP_books, FP_author where FP_books.authorId=FP_author.authorId;';
+                    var books = null;
+                    connection.query(redirectToHome, function(error, results){
+                        if(error) throw error;
+                        if(results.length) books = results;
+                        // console.log(books)
+                        // res.render('home', {books: books});
+                        res.render('home',{user: user, books: books});
+                    });
+                    // res.render('home',{user: user, books: books});
                 }else {
                     console.log("Incorrect Password!");
                     var loginError = true;

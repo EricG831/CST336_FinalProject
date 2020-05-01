@@ -63,8 +63,11 @@
 	            			<td class='bookTable'><%=book.title%></td>
 	            			<td class='bookTable'><%=book.year%></td>
 	            			<td class='bookTable'><%=book.firstName%> <%=book.lastName%></td>
+	            			<%if(book.inStock != 0){%>
 	            			<td class='bookTable'><button class='btn btn-primary btn-block'>Checkout</button></td>
-	            			
+	            			<%} else {%>
+	            			<td class='bookTable'>Out of Stock!</td>
+	            			<%}%>
             			</form>
             		</tr>
             		<br>

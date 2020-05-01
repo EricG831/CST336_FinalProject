@@ -11,15 +11,16 @@
         <%}
         else{%>
         	<table>
-        		<tr><th>Cover</th><th>Title</th><th>AuthorID</th><th>Published In</th></tr>
+        		<tr class='bookHeadings'><th><h4 style="font-size:30px;padding-left:20px"> Cover </h4></th><th><h4 style="font-size:30px;padding-left:90px"> Title </h4></th>
+        		<th><h4 style="font-size:30px;padding-left:70px"> Year </h4></th>
         		<tr><td colspan="4"><hr/></td></tr>
+        		<tr><td colspan="10"><hr/></td></tr>
         		<%books.forEach(function(book){%>
             		<tr>
             		    <td><img src= '<%=book.cover%>'></image></td>
-            			<td><%=book.title%></td>
-            			<td><%=book.authorId%></td>
-            			<td><%=book.year%></td>
-            			<td><a href='/checkout/<%=book.bookId%>'><h2>Checkout</h2></a></td>
+            			<td  class='bookTable'><%=book.title%></td>
+            			<td  class='bookTable'><%=book.year%></td>
+            			<td  class='bookTable'><a href='/checkout/<%=book.bookId%>'><h2>Checkout</h2></a></td>
             		</tr>
             		<br>
         		<%});%>

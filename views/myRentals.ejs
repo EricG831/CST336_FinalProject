@@ -11,18 +11,20 @@
         <%}
         else{%>
         	<table>
-        		<tr><th><h4> /Cover/ </h4></th><th><h4> /Title/ </h4></th><th><h4> /Year/ </h4></th><th><h4> /Author/ <h4></th></tr>
+        		<tr class='bookHeadings'><th><h4 style="font-size:30px;padding-left:20px"> Cover </h4></th><th><h4 style="font-size:30px;padding-left:90px"> Title </h4></th>
+        		<th><h4 style="font-size:30px;padding-left:70px"> Year </h4></th>
         		<tr><td colspan="4"><hr/></td></tr>
+        		<tr><td colspan="10"><hr/></td></tr>
         		<%rentedBooks.forEach(function(rentedBook){%>
             		<%books.forEach(function(book){%>
             			<%if(book.bookId == rentedBook.bookId){%>
             			<tr>
 	            			<form action='/return/<%=rentedBook.rentalId%>' method='POST'>
 	            				<td><img src= '<%=book.cover%>'></image></td>
-		            			<td><%=book.title%></td>
-		            			<td><%=book.year%></td>
-		            			<td><%=book.firstName%> <%=book.lastName%></td>
-		            			<td><button class='btn btn-primary btn-block'>Return</button></td>
+		            			<td class='bookTable'><%=book.title%></td>
+		            			<td class='bookTable'><%=book.year%></td>
+		            			<td class='bookTable'><%=book.firstName%> <%=book.lastName%></td>
+		            			<td class='bookTable'><button class='btn btn-primary btn-block'>Return Book</button></td>
 	            			</form>
 	            		</tr>
 	            		<br>
