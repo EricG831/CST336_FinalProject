@@ -29,8 +29,17 @@ INSERT INTO `FP_author` (`authorId`, `firstName`, `lastName`, `portrait`, `biogr
 (7, 'Agatha', 'Christie', 'https://www.gstatic.com/tv/thumb/persons/323/323_v9_ba.jpg', 'Dame Agatha Mary Clarissa Christie, Lady Mallowan, DBE was an English writer known for her sixty-six detective novels and fourteen short story collections, particularly those revolving around fictional detectives Hercule Poirot and Miss Marple.'),
 (8, 'C. S.', 'Lewis', 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/C.s.lewis3.JPG/220px-C.s.lewis3.JPG', 'Clive Staples Lewis was a British writer and lay theologian. He held academic positions in English literature at both Oxford University and Cambridge University.'),
 (9, 'Dan', 'Brown', 'https://danbrown.com/wp-content/themes/danbrown/images/db/slideshow/author/db.courter.02.jpg', 'Daniel Gerhard Brown is an American author best known for his thriller novels, including the Robert Langdon novels Angels & Demons, The Da Vinci Code, The Lost Symbol, Inferno and Origin. His novels are treasure hunts that usually take place over a period of 24 hours.' ),
-(10, 'Carlo', 'Collodi', 'https://images.gr-assets.com/authors/1259046834p5/15123.jpg', 'Carlo Lorenzini, better known by the pen name Carlo Collodi, was an Italian author, humorist, and journalist, widely known for his fairy tale novel The Adventures of Pinocchio.');
-
+(10, 'Carlo', 'Collodi', 'https://images.gr-assets.com/authors/1259046834p5/15123.jpg', 'Carlo Lorenzini, better known by the pen name Carlo Collodi, was an Italian author, humorist, and journalist, widely known for his fairy tale novel The Adventures of Pinocchio.'),
+(11, 'George', 'Orwell', 'https://images.gr-assets.com/authors/1450573063p5/3706.jpg', 'Eric Arthur Blair, better known by his pen name George Orwell, was an English author and journalist.'),
+(12, 'Neil', 'Gaiman', 'https://images.gr-assets.com/authors/1234150163p5/1221698.jpg', 'Neil Richard MacKinnon Gaiman is an English author of short fiction, novels, comic books, graphic novels, nonfiction, audio theatre, and films.'),
+(13, 'James', 'Patterson', 'https://images.gr-assets.com/authors/1468347205p5/3780.jpg', 'James Patterson is the worlds bestselling author and most trusted storyteller.'),
+(14, 'Ray', 'Bradbury', 'https://images.gr-assets.com/authors/1445955959p5/1630.jpg', 'Ray Douglas Bradbury, American novelist, short story writer, essayist, playwright, screenwriter and poet, was born August 22, 1920 in Waukegan, Illinois.'),
+(15, 'Harper', 'Lee', 'https://images.gr-assets.com/authors/1188820730p5/1825.jpg', 'Harper Lee, known as Nelle, was born in the Alabama town of Monroeville, the youngest of four children of Amasa Coleman Lee and Frances Cunningham Finch Lee.'),
+(16, 'Franz', 'Kafka', 'https://images.gr-assets.com/authors/1569196898p5/5223.jpg', 'Franz Kafka was one of the major fiction writers of the 20th century. '),
+(17, 'E.B.', 'White', 'https://images.gr-assets.com/authors/1198519412p5/988142.jpg', 'Elwyn Brooks White was a leading American essayist, author, humorist, poet and literary stylist and author of such beloved childrens classics as Charlottes Web, Stuart Little, and The Trumpet of the Swan.'),
+(18, 'William', 'Shakespeare', 'https://images.gr-assets.com/authors/1586700347p5/947.jpg', 'William Shakespeare (baptised 26 April 1564) was an English poet and playwright, widely regarded as the greatest writer in the English language and the worlds pre-eminent dramatist.'),
+(19, 'Suzanne', 'Collins', 'https://images.gr-assets.com/authors/1530308375p5/153394.jpg', 'Since 1991, Suzanne Collins has been busy writing for childrens television.'),
+(20, 'John', 'Green', 'https://images.gr-assets.com/authors/1353452301p5/1406384.jpg', 'John Greens first novel, Looking for Alaska, won the 2006 Michael L. Printz Award presented by the American Library Association.');
 
 -- --------------------------------------------------------
 
@@ -142,7 +151,37 @@ INSERT INTO `FP_books` (`bookId`, `title`, `authorId`, `cover`, `year`, `inStock
 1950, 25),
 (10, 'The Da Vinci Code', 9, 
 'https://imgix.ranker.com/user_node_img/110/2186945/original/the-da-vinci-code-books-photo-u2?w=120&h=120&q=60&fm=pjpg&fit=crop&crop=faces', 
-2003, 2);
+2003, 2),
+(11, '1984', 11,
+'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1532714506l/40961427._SX318_.jpg', 
+1949, 1),
+(12, 'Norse Mythology', 12,
+'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1516128292l/37903770._SX318_.jpg', 
+2017, 3),
+(13, 'Along Came a Spider', 13,
+'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1388272560l/13145.jpg', 
+1993, 7),
+(14, 'To Kill a Mockingbird', 15,
+'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1553383690l/2657.jpg', 
+1960, 10),
+(15, 'Fahrenheit 451', 14,
+'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1383718290l/13079982.jpg', 
+1954, 3),
+(16, 'The Metamorphosis', 16,
+'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1359061917l/485894.jpg', 
+1912, 1),
+(17, 'Stuart Little', 17,
+'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1429969863l/24916068.jpg', 
+1945, 20),
+(18, 'Romeo and Juliet', 18,
+'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1572098085l/18135._SY475_.jpg', 
+1595, 5),
+(19, 'The Hunger Games', 19,
+'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1586722975l/2767052.jpg', 
+2008, 11),
+(20, 'The Fault in Our Stars', 20,
+'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1360206420l/11870085.jpg', 
+2012, 1);
 
 -- --------------------------------------------------------
 
