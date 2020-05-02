@@ -1,0 +1,50 @@
+<%- include ('templates/header'); -%>
+
+<div>
+					<div class='col-sm-4'>
+			    <input type='text' class='form-control' id='name'  name='title' placeholder='Book Title'required>
+					
+						<button class='sumbit'>Search Books By Tittle</button>
+					</div>
+				</div>
+				
+				<div id="result">
+			<div class="row">
+				<div class="col-sm-4" id="info"></div>
+			</div>	
+		</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+      
+  $(".sumbit").on("click touchstart", function(e) {
+	$("#info").empty();
+       $.ajax({
+      		url: "https://openlibrary.org/search.json",
+      		type: "GET",
+      		dataType: "json",
+      		data:{
+      			"author": $("#name").val(),
+      			"jscmd": "data",
+      			"format": "json"
+      			
+      		},
+		success: function(data){
+		    console.log('result of call of POST', data);
+		    var info = "Recommendations: " + data.docs[0].title +"<br/>" +
+		     data.docs[1].title + "<br/>" + data.docs[2].title + "<br/>"+ data.docs[0].title
+		    
+		    $("#info").append(info);
+		    
+		},
+		  error: function(xhr, status) {
+            console.log('error calling POST', status);
+        },
+ });
+ });
+</script>
+
+
+
+<%- include ('templates/footer'); -%>
