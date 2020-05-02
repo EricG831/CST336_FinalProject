@@ -1,15 +1,20 @@
-         ___        ______     ____ _                 _  ___  
-        / \ \      / / ___|   / ___| | ___  _   _  __| |/ _ \ 
-       / _ \ \ /\ / /\___ \  | |   | |/ _ \| | | |/ _` | (_) |
-      / ___ \ V  V /  ___) | | |___| | (_) | |_| | (_| |\__, |
-     /_/   \_\_/\_/  |____/   \____|_|\___/ \__,_|\__,_|  /_/ 
- ----------------------------------------------------------------- 
-
-
-Hi there! Welcome to AWS Cloud9!
-
-To get started, create some files, play with the terminal,
-or visit https://docs.aws.amazon.com/console/cloud9/ for our documentation.
-
-Happy coding!
 # CST336_FinalProject
+
+Team Member Information
+Eric Guerra     
+Otter ID: 003102046
+Email: eguerra@csumb.edu
+Phone Number: (831)2587928 
+
+Yvonne Cruz
+Otter ID: 004155377
+Email: yvcruz@csumb.edu
+Phone Number: (323)2198214
+
+Jose Perez
+Otter ID: 003175427
+Email: joseperez2@csumb.edu    
+Phone Number: (831)240-1459
+
+Github Link : https://github.com/EricG831/CST336_FinalProject/
+Heroku Link : 
