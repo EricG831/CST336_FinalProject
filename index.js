@@ -38,7 +38,7 @@ connection.connect();
 
 /* Uncomment this to run tests on reviews.ejs
 app.get('/', function(req, res){
-    res.render('reviews');
+    res.render('recommend');
 });
 
 app.post("/", function(req,res){
