@@ -30,8 +30,8 @@ app.use(passport.session());
 /* Configure MySQL DBMS */
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'ericg',
-    password: 'ericg',
+    user: 'yvcruz',
+    password: 'yvcruz',
     database: 'library_db'
 });
 connection.connect();
@@ -209,6 +209,13 @@ app.post('/login', function(req, res){
             res.render('login', {loginError: loginError});
         }
     });
+});
+
+
+/* Logout Route */
+app.get('/logout', function(req, res){
+   req.session.destroy();
+   res.redirect('/');
 });
 
 /* The handlers for the Register routes */
