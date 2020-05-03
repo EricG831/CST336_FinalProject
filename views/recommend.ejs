@@ -1,18 +1,32 @@
 <%- include ('templates/header'); -%>
-
-<div>
-					<div class='col-sm-4'>
-			    <input type='text' class='form-control' id='name'  name='title' placeholder='Book Title'required>
-					
-						<button class='sumbit'>Search Books By Tittle</button>
-					</div>
+<div class="container">
+		<div class="jumbotron">
+			<h1>Recommendations</h1>
+			<p>Please enter an author</p>
+			
+		<div class="form-group row">
+				<div class='searchLabel'>
+						<label for='name' class='col-sm-1 col-form-label'>Author:</label>
 				</div>
+					
+				<div class="col-sm-4">
+						<input type='text' class='form-control' id='name'  name='title' placeholder='Tolkien'required>
+				</div>
+				<div class="col-sm-4">
+							
+						<button class='sumbit btn btn-primary'>Recommend Me</button>
+				</div>
+			</div>
 				
-				<div id="result">
-			<div class="row">
-				<div class="col-sm-4" id="info"></div>
-			</div>	
+			<div id="result">
+				<div class="row">
+					<img class="col-sm-3" id="cover" src="">
+					<div class="col-sm-3" id="info"></div>
+				</div>	
+			</div>
 		</div>
+
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
@@ -32,19 +46,30 @@
       		},
 		success: function(data){
 		    console.log('result of call of POST', data);
-		    var info = "Recommendations: " + data.docs[0].title +"<br/>" +
-		     data.docs[1].title + "<br/>" + data.docs[2].title + "<br/>"+ data.docs[0].title
+		    var lastYear1 = data.docs[0].publish_year.pop();
+		    var lastYear2 = data.docs[1].publish_year.pop();
+		    var lastYear3 = data.docs[2].publish_year.pop();
+		    var lastYear4 = data.docs[3].publish_year.pop();
+		    var lastYear5 = data.docs[4].publish_year.pop();
+		    var info = "Here's some books by  "+ data.docs[0].author_name + ":<br/>" 
+		    + data.docs[0].title +" ("+lastYear1
+		    +")"+"<br/>" + data.docs[1].title +" ("+lastYear2
+		    +")" + "<br/>" + data.docs[2].title +" ("+lastYear3
+		    +")" + "<br/>" + data.docs[3].title +" ("+lastYear4
+		    +")" + "<br/>" + data.docs[4].title +" ("+lastYear5
+		    +")" + "<br/>"
 		    
 		    $("#info").append(info);
 		    
 		},
 		  error: function(xhr, status) {
             console.log('error calling POST', status);
+            var info = "Error, author not found try again."
+            $("#info").append(info);
         },
  });
  });
 </script>
-
 
 
 <%- include ('templates/footer'); -%>
