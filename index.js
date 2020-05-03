@@ -36,19 +36,6 @@ const connection = mysql.createConnection({
 });
 connection.connect();
 
-/* Uncomment this to run tests on reviews.ejs
-app.get('/', function(req, res){
-    res.render('recommend');
-});
-
-app.post("/", function(req,res){
-    
-    res.json({
-        original: req.body
-    })
-});
-*/
-
 /* The handler for the DEFAULT route */
 app.get('/', function(req, res){
     var stmt = 'SELECT * FROM FP_books, FP_author where FP_books.authorId=FP_author.authorId;';
@@ -410,6 +397,11 @@ function check_auth(req, res, next) {
   //  the user is logged in, so call next()
   next();
 }
+
+/* Recommendation page with API */
+app.get('/recommend', function(req, res){
+    res.render('recommend');
+});
 
 /* Start the application server */
 app.listen(process.env.PORT || 3000, function(){
