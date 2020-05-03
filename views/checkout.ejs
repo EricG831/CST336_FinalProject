@@ -19,7 +19,7 @@
                 <%books.forEach(function(book){%>
                     <form action='/rentalConfirmation/<%=book.bookId%>' method='POST'>
                         <tr class= 'bookLabels'>
-                        	<td class='bookTable'><img src= '<%=book.cover%>'></image></td>
+                        	<td class='bookTable'><img class = "img" src= '<%=book.cover%>'></image></td>
                         	<td class='bookTable'><%=book.title%></td>
                         	<td class='bookTable'><%=book.year%></td>
                         	<td class='bookTable'><%=book.inStock%></td>

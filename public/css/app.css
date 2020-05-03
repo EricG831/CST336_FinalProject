@@ -46,3 +46,10 @@
     height:2px;
     margin-bottom: 0px;
 }
+
+.img {
+    float:  left;
+    width:  150px;
+    height: 200px;
+    background-size: cover;
+}

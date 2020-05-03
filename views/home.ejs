@@ -59,7 +59,7 @@
         		<%books.forEach(function(book){%>
             		<tr class= 'bookLabels'>
             			<form action='/checkout/<%=book.bookId%>' method='GET'>
-            				<td><img src= '<%=book.cover%>'></image></td>
+            				<td><img class = "img" src= '<%=book.cover%>'></image></td>
 	            			<td class='bookTable'><%=book.title%></td>
 	            			<td class='bookTable'><%=book.year%></td>
 	            			<td class='bookTable'><%=book.firstName%> <%=book.lastName%></td>

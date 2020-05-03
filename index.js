@@ -30,8 +30,8 @@ app.use(passport.session());
 /* Configure MySQL DBMS */
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'yvcruz',
-    password: 'yvcruz',
+    user: 'ericg',
+    password: 'ericg',
     database: 'library_db'
 });
 connection.connect();
