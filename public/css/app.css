@@ -53,3 +53,9 @@
     height: 200px;
     background-size: cover;
 }
+.recommend{
+     padding-left: 500px;
+}
+.col-sm-3{
+    font-size: 20px;
+}
