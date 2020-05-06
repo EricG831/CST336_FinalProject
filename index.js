@@ -28,11 +28,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 /* Configure MySQL DBMS */
+//mysql://bac75ce7b4703e:106a97bf@us-cdbr-east-06.cleardb.net/heroku_8c2287459ce612b?reconnect=true
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'ericg',
-    password: 'ericg',
-    database: 'library_db'
+    host: 'us-cdbr-east-06.cleardb.net',
+    user: 'bac75ce7b4703e',
+    password: '106a97bf',
+    database: 'heroku_8c2287459ce612b'
 });
 connection.connect();
 
@@ -403,7 +404,8 @@ app.get('/recommend', function(req, res){
     res.render('recommend');
 });
 
-/* Start the application server */
-app.listen(process.env.PORT || 3000, function(){
-    console.log('Server has been started');
+//starting server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
 });
